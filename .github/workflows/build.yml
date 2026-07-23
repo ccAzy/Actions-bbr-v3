@@ -133,7 +133,7 @@ jobs:
 
       - name: 检出代码
         if: env.BUILD_NEEDED == 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: 安装依赖项
         if: env.BUILD_NEEDED == 'true'
@@ -204,7 +204,7 @@ jobs:
 
       - name: 上传最终配置文件
         if: env.BUILD_NEEDED == 'true' && matrix.profile == 'standard'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: config-${{ matrix.arch }}-${{ matrix.profile }}-${{ env.KERNEL_VERSION }}
           path: ./build-configs/${{ matrix.arch }}*.config
@@ -245,14 +245,14 @@ jobs:
 
       - name: 上传发布标记
         if: env.BUILD_NEEDED == 'true' && env.PUBLISH_NEEDED == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: publish-${{ matrix.arch }}-${{ matrix.profile }}-${{ env.KERNEL_VERSION }}
           path: ./publish-markers/${{ matrix.arch }}-${{ matrix.profile }}
 
       - name: 上传 deb 包
         if: env.BUILD_NEEDED == 'true' && env.PUBLISH_NEEDED == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: deb-${{ matrix.arch }}-${{ matrix.profile }}
           path: ./kernel/linux-*.deb
@@ -273,10 +273,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: 下载本轮最终配置
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         continue-on-error: true
         with:
           pattern: config-*-standard-*
@@ -284,7 +284,7 @@ jobs:
           merge-multiple: true
 
       - name: 下载发布标记
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         continue-on-error: true
         with:
           pattern: publish-*-standard-*
